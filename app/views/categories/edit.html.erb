@@ -1,0 +1,12 @@
+<h1 class="text-2xl font-bold mb-4">Edit Category</h1>
+<%= form_with model: @category, class: "space-y-4" do |form| %>
+  <div>
+    <%= form.label :name, class: "block font-semibold" %>
+    <%= form.text_field :name, class: "w-full p-2 border rounded" %>
+    <% @category.errors.full_messages_for(:name).each do |message| %>
+      <p class="text-red-600"><%= message %></p>
+    <% end %>
+  </div>
+  <%= form.submit "Update Category", class: "bg-blue-600 text-white p-2 rounded" %>
+<% end %>
+<%= link_to "Back", categories_path, class: "text-blue-600 hover:underline mt-4 inline-block" %>

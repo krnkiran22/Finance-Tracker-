@@ -1,0 +1,40 @@
+<h1 class="text-2xl font-bold mb-4">New Transaction</h1>
+<%= form_with model: @transaction, class: "space-y-4" do |form| %>
+  <div>
+    <%= form.label :description, class: "block font-semibold" %>
+    <%= form.text_field :description, class: "w-full p-2 border rounded" %>
+    <% @transaction.errors.full_messages_for(:description).each do |message| %>
+      <p class="text-red-600"><%= message %></p>
+    <% end %>
+  </div>
+  <div>
+    <%= form.label :amount, class: "block font-semibold" %>
+    <%= form.number_field :amount, step: 0.01, class: "w-full p-2 border rounded" %>
+    <% @transaction.errors.full_messages_for(:amount).each do |message| %>
+      <p class="text-red-600"><%= message %></p>
+    <% end %>
+  </div>
+  <div>
+    <%= form.label :transaction_type, class: "block font-semibold" %>
+    <%= form.select :transaction_type, ['income', 'expense'], {}, class: "w-full p-2 border rounded" %>
+    <% @transaction.errors.full_messages_for(:transaction_type).each do |message| %>
+      <p class="text-red-600"><%= message %></p>
+    <% end %>
+  </div>
+  <div>
+    <%= form.label :category_id, class: "block font-semibold" %>
+    <%= form.collection_select :category_id, @categories, :id, :name, { prompt: "Select a category" }, class: "w-full p-2 border rounded" %>
+    <% @transaction.errors.full_messages_for(:category_id).each do |message| %>
+      <p class="text-red-600"><%= message %></p>
+    <% end %>
+  </div>
+  <div>
+    <%= form.label :date, class: "block font-semibold" %>
+    <%= form.date_field :date, class: "w-full p-2 border rounded" %>
+    <% @transaction.errors.full_messages_for(:date).each do |message| %>
+      <p class="text-red-600"><%= message %></p>
+    <% end %>
+  </div>
+  <%= form.submit "Create Transaction", class: "bg-blue-600 text-white p-2 rounded" %>
+<% end %>
+<%= link_to "Back", transactions_path, class: "text-blue-600 hover:underline mt-4 inline-block" %>

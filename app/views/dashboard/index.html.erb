@@ -1,0 +1,38 @@
+<h1 class="text-2xl font-bold mb-4">Dashboard</h1>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+  <div class="bg-white p-4 rounded shadow">
+    <h2 class="text-lg font-semibold">Total Income</h2>
+    <p class="text-xl text-green-600">$<%= number_to_currency(@total_income) %></p>
+  </div>
+  <div class="bg-white p-4 rounded shadow">
+    <h2 class="text-lg font-semibold">Total Expenses</h2>
+    <p class="text-xl text-red-600">$<%= number_to_currency(@total_expense) %></p>
+  </div>
+  <div class="bg-white p-4 rounded shadow">
+    <h2 class="text-lg font-semibold">Balance</h2>
+    <p class="text-xl <%= @balance >= 0 ? 'text-green-600' : 'text-red-600' %>">$<%= number_to_currency(@balance) %></p>
+  </div>
+</div>
+<h2 class="text-xl font-bold mb-4">Recent Transactions</h2>
+<table class="w-full bg-white rounded shadow">
+  <thead>
+    <tr class="bg-gray-200">
+      <th class="p-2 text-left">Description</th>
+      <th class="p-2 text-left">Amount</th>
+      <th class="p-2 text-left">Type</th>
+      <th class="p-2 text-left">Category</th>
+      <th class="p-2 text-left">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @recent_transactions.each do |transaction| %>
+      <tr>
+        <td class="p-2"><%= transaction.description %></td>
+        <td class="p-2">$<%= number_to_currency(transaction.amount) %></td>
+        <td class="p-2"><%= transaction.transaction_type.capitalize %></td>
+        <td class="p-2"><%= transaction.category.name %></td>
+        <td class="p-2"><%= transaction.date.strftime('%Y-%m-%d') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
